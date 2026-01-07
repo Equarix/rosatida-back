@@ -2,7 +2,7 @@ import { Request } from 'express';
 import { RoleEnum } from '../enum/Role.enum';
 
 export interface JwtPayload {
-  userId: string;
+  userId: number;
   role: RoleEnum;
   iat: number;
 }

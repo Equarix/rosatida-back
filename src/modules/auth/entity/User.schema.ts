@@ -4,6 +4,9 @@ import { RoleEnum } from '../../../common/enum/Role.enum';
   collection: 'users',
 })
 export class User {
+  @Prop()
+  userId: number;
+
   @Prop({
     required: true,
     unique: true,

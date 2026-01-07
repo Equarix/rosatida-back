@@ -6,6 +6,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from '../../common/jwt/jwt.strategy';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from './entity/User.schema';
+import { AutoIncrementID } from '@typegoose/auto-increment';
 
 @Module({
   imports: [
@@ -13,10 +14,19 @@ import { User, UserSchema } from './entity/User.schema';
     JwtModule.register({
       secret: process.env.JWT_SECRET,
     }),
-    MongooseModule.forFeature([
+    MongooseModule.forFeatureAsync([
       {
         name: User.name,
-        schema: UserSchema,
+        useFactory: () => {
+          const schema = UserSchema;
+          schema.plugin(AutoIncrementID, {
+            field: 'userId',
+            startAt: 1,
+            incrementBy: 1,
+          });
+
+          return schema;
+        },
       },
     ]),
   ],
