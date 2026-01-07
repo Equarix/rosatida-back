@@ -5,6 +5,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { CategoriesModule } from './modules/categories/categories.module';
 import { ProjectsModule } from './modules/projects/projects.module';
 import { ImagesModule } from './modules/images/images.module';
+import { CategoryPublicModule } from './public/category-public/category-public.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { ImagesModule } from './modules/images/images.module';
     CategoriesModule,
     ProjectsModule,
     ImagesModule,
+    CategoryPublicModule,
   ],
   controllers: [],
   providers: [],
