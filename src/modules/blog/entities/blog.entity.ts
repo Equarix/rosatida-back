@@ -5,12 +5,15 @@ import { Category } from 'src/modules/categories/entities/category.entity';
 import { Image } from 'src/modules/images/entities/image.entity';
 
 @Schema()
-export class Project {
+export class Blog {
   @Prop()
-  projectId: number;
+  blogId: number;
 
   @Prop()
-  projectName: string;
+  blogName: string;
+
+  @Prop()
+  blogSlug: string;
 
   @Prop()
   description: string;
@@ -38,8 +41,13 @@ export class Project {
   })
   createdAt: Date;
 
+  @Prop({
+    default: true,
+  })
+  status: boolean;
+
   @Prop()
   timeline: string;
 }
 
-export const ProjectSchema = SchemaFactory.createForClass(Project);
+export const BlogSchema = SchemaFactory.createForClass(Blog);

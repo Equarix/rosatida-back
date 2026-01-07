@@ -13,10 +13,16 @@ export class Category {
   @Prop()
   description: string;
 
+  @Prop()
+  slug: string;
+
   @Prop({
     default: true,
   })
   status: boolean;
+
+  @Prop()
+  color: string;
 }
 
 export const CategorySchema = SchemaFactory.createForClass(Category);

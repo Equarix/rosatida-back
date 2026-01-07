@@ -1,8 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ProjectsService } from './projects.service';
-import { ProjectsController } from './projects.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Project, ProjectSchema } from './entities/project.entity';
 import { AutoIncrementID } from '@typegoose/auto-increment';
 import { User, UserSchema } from '../auth/entity/User.schema';
 import { Image, ImageSchema } from '../images/entities/image.entity';
@@ -10,16 +7,19 @@ import {
   Category,
   CategorySchema,
 } from '../categories/entities/category.entity';
+import { Blog, BlogSchema } from './entities/blog.entity';
+import { BlogService } from './blog.service';
+import { BlogController } from './blog.controller';
 
 @Module({
   imports: [
     MongooseModule.forFeatureAsync([
       {
-        name: Project.name,
+        name: Blog.name,
         useFactory: () => {
-          const schema = ProjectSchema;
+          const schema = BlogSchema;
           schema.plugin(AutoIncrementID, {
-            field: 'projectId',
+            field: 'blogId',
             startAt: 1,
             incrementBy: 1,
           });
@@ -47,7 +47,7 @@ import {
       },
     ]),
   ],
-  controllers: [ProjectsController],
-  providers: [ProjectsService],
+  controllers: [BlogController],
+  providers: [BlogService],
 })
-export class ProjectsModule {}
+export class BlogModule {}

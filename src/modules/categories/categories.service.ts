@@ -4,6 +4,7 @@ import { UpdateCategoryDto } from './dto/update-category.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Category } from './entities/category.entity';
 import { Model } from 'mongoose';
+import { createSlug } from 'src/common/utils/create-slug';
 
 @Injectable()
 export class CategoriesService {
@@ -12,7 +13,14 @@ export class CategoriesService {
   ) {}
 
   async create(createCategoryDto: CreateCategoryDto) {
-    const createdCategory = await this.categoryModel.create(createCategoryDto);
+    const { name } = createCategoryDto;
+
+    const slug = createSlug(name);
+
+    const createdCategory = await this.categoryModel.create({
+      ...createCategoryDto,
+      slug,
+    });
     return createdCategory.save();
   }
 
@@ -39,8 +47,18 @@ export class CategoriesService {
       throw new HttpException('Category not found', 404);
     }
 
+    const { name } = updateCategoryDto;
+
+    const slug = createSlug(name);
+
     await this.categoryModel
-      .updateOne({ categoryId: id }, updateCategoryDto)
+      .updateOne(
+        { categoryId: id },
+        {
+          ...updateCategoryDto,
+          slug,
+        },
+      )
       .exec();
 
     return this.categoryModel.findOne({ categoryId: id }).exec();

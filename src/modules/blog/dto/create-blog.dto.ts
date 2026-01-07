@@ -1,9 +1,9 @@
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
-export class CreateProjectDto {
+export class CreateBlogDto {
   @IsString()
   @IsNotEmpty()
-  projectName: string;
+  blogName: string;
 
   @IsString()
   @IsNotEmpty()
