@@ -1,4 +1,13 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import {
+  ArrayMinSize,
+  IsArray,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
+import { ComponentDto } from './components/Component.dto';
+import { Type } from 'class-transformer';
 
 export class CreateBlogDto {
   @IsString()
@@ -20,4 +29,11 @@ export class CreateBlogDto {
   @IsString()
   @IsNotEmpty()
   timeline: string;
+
+  @IsArray()
+  @ArrayMinSize(1)
+  @ValidateNested({ each: true })
+  @IsNotEmpty({ each: true })
+  @Type(() => ComponentDto)
+  components: ComponentDto[];
 }

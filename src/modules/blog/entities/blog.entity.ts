@@ -3,6 +3,7 @@ import { Types } from 'mongoose';
 import { User } from 'src/modules/auth/entity/User.schema';
 import { Category } from 'src/modules/categories/entities/category.entity';
 import { Image } from 'src/modules/images/entities/image.entity';
+import { Components } from './components/components';
 
 @Schema()
 export class Blog {
@@ -48,6 +49,12 @@ export class Blog {
 
   @Prop()
   timeline: string;
+
+  @Prop({
+    type: Array,
+    default: [],
+  })
+  components: Components[];
 }
 
 export const BlogSchema = SchemaFactory.createForClass(Blog);
