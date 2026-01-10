@@ -7,6 +7,7 @@ import { ImagesModule } from './modules/images/images.module';
 import { CategoryPublicModule } from './public/category-public/category-public.module';
 import { BlogModule } from './modules/blog/blog.module';
 import { BlogPublicModule } from './public/blog-public/blog-public.module';
+import { CategoriesProjectModule } from './modules/categories-project/categories-project.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { BlogPublicModule } from './public/blog-public/blog-public.module';
     CategoryPublicModule,
     BlogModule,
     BlogPublicModule,
+    CategoriesProjectModule,
   ],
   controllers: [],
   providers: [],
