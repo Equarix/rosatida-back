@@ -1,4 +1,10 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateCategoriesProjectDto } from './create-categories-project.dto';
-
-export class UpdateCategoriesProjectDto extends PartialType(CreateCategoriesProjectDto) {}
+import { IsBoolean, IsOptional } from 'class-validator';
+export class UpdateCategoriesProjectDto extends PartialType(
+  CreateCategoriesProjectDto,
+) {
+  @IsBoolean()
+  @IsOptional()
+  status?: boolean;
+}
