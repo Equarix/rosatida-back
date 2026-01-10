@@ -3,7 +3,7 @@ import { Types } from 'mongoose';
 import { User } from 'src/modules/auth/entity/User.schema';
 import { Category } from 'src/modules/categories/entities/category.entity';
 import { Image } from 'src/modules/images/entities/image.entity';
-import { Components } from './components/components';
+import { Components } from '../../../common/components/components';
 
 @Schema()
 export class Blog {

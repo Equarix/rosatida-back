@@ -6,8 +6,8 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-import { ComponentDto } from './components/Component.dto';
 import { Type } from 'class-transformer';
+import { ComponentDto } from 'src/common/components/dto/component.dto';
 
 export class CreateBlogDto {
   @IsString()
