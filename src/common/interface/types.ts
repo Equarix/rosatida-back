@@ -6,7 +6,15 @@ export interface ResponseApi<T> {
   errors?: string[];
 }
 
+interface Metadata {
+  totalItems: number;
+  itemCount: number;
+  totalPages: number;
+  currentPage: number;
+}
+
 export interface ResponseExtras<T> {
   data: T;
   token?: string;
+  metadata?: Metadata;
 }

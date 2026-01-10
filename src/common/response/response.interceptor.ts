@@ -19,12 +19,13 @@ export class ResponseInterceptor<T> implements NestInterceptor<
   ): Observable<ResponseApi<T>> | Promise<Observable<ResponseApi<T>>> {
     return next.handle().pipe(
       map((data) => {
-        const { data: responseData, token } = data ?? {};
+        const { data: responseData, token, metadata } = data ?? {};
 
         return {
           body: responseData ?? data,
           message: 'Request successful',
           status: HttpStatus.OK,
+          ...(metadata && { metadata }),
           ...(token && { token }),
         } as ResponseApi<T>;
       }),
