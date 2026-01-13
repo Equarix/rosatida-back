@@ -39,4 +39,8 @@ export class HeroComponentDto {
   @IsString()
   @IsNotEmpty()
   image: string;
+
+  @IsString()
+  @IsNotEmpty()
+  description: string;
 }

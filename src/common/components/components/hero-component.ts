@@ -22,6 +22,9 @@ export class HeroComponent {
   @Prop()
   title: string;
 
+  @Prop()
+  description: string;
+
   @Prop({
     type: SpanHero,
   })
