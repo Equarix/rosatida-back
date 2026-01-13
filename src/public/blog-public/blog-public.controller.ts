@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { BlogPublicService } from './blog-public.service';
 import { BlogPublicQueryDto } from './dto/blog-public-query.dto';
 
@@ -9,5 +9,10 @@ export class BlogPublicController {
   @Get()
   findAll(@Query() query: BlogPublicQueryDto) {
     return this.blogPublicService.findAll(query);
+  }
+
+  @Get(':slug')
+  findOne(@Param('slug') slug: string) {
+    return this.blogPublicService.findOne(slug);
   }
 }

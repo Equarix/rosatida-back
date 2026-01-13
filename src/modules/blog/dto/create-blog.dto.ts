@@ -18,6 +18,10 @@ export class CreateBlogDto {
   @IsNotEmpty()
   description: string;
 
+  @IsString()
+  @IsNotEmpty()
+  blogKey: string;
+
   @IsNumber()
   @IsNotEmpty()
   imageId: number;

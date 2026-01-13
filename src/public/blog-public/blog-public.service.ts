@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UserModel } from 'src/common/interface/mongo-types';
@@ -71,6 +71,29 @@ export class BlogPublicService {
         itemCount: blogs.length,
         totalPages: Math.ceil(count / (limit || 10)),
         currentPage: page || 1,
+      },
+    };
+  }
+
+  async findOne(slug: string) {
+    const blog = await this.blogSchema
+      .findOne({ blogSlug: slug, status: true })
+      .populate('image')
+      .populate('category')
+      .populate('user')
+      .exec();
+
+    if (!blog) {
+      throw new HttpException('Blog not found', 404);
+    }
+
+    const userObject = blog.user as unknown as UserModel;
+    const name = userObject.toObject().username;
+
+    return {
+      ...blog.toObject(),
+      user: {
+        name,
       },
     };
   }

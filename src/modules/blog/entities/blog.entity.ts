@@ -14,6 +14,9 @@ export class Blog {
   blogName: string;
 
   @Prop()
+  blogKey: string;
+
+  @Prop()
   blogSlug: string;
 
   @Prop()
