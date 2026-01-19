@@ -1,7 +1,8 @@
 export enum LanguageType {
-  JAVASCRIPT = 'JAVASCRIPT',
+  TYPESCRIPT = 'TYPESCRIPT',
   PYTHON = 'PYTHON',
   JAVA = 'JAVA',
   CSHARP = 'CSHARP',
-  REACT = 'REACT',
+  HTML = 'HTML',
+  SQL = 'SQL',
 }
