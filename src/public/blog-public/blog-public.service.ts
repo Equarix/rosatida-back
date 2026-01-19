@@ -1,10 +1,10 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { UserModel } from 'src/common/interface/mongo-types';
-import { Blog } from 'src/modules/blog/entities/blog.entity';
+import { UserModel } from '../../common/interface/mongo-types';
+import { Blog } from '../../modules/blog/entities/blog.entity';
 import { BlogPublicQueryDto } from './dto/blog-public-query.dto';
-import { Category } from 'src/modules/categories/entities/category.entity';
+import { Category } from '../../modules/categories/entities/category.entity';
 
 @Injectable()
 export class BlogPublicService {

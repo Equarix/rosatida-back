@@ -6,4 +6,5 @@ export enum ComponentType {
   TIME_LINE = 'TIME_LINE',
   DETAILS = 'DETAILS',
   QUOTE = 'QUOTE',
+  TEXT_EDITOR = 'TEXT',
 }

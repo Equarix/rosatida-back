@@ -7,7 +7,7 @@ import {
   ValidateNested,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { ComponentDto } from 'src/common/components/dto/component.dto';
+import { ComponentDto } from '../../../common/components/dto/component.dto';
 
 export class CreateBlogDto {
   @IsString()

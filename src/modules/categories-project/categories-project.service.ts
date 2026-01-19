@@ -4,7 +4,7 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { CategoriesProyect } from './entities/categories-project.entity';
 import { Model } from 'mongoose';
-import { createSlug } from 'src/common/utils/create-slug';
+import { createSlug } from '../../common/utils/create-slug';
 
 @Injectable()
 export class CategoriesProjectService {

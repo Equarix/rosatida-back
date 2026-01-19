@@ -10,8 +10,8 @@ import {
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
-import { Auth } from 'src/common/decorator/auth/auth.decorator';
-import { RoleEnum } from 'src/common/enum/Role.enum';
+import { Auth } from '../../common/decorator/auth/auth.decorator';
+import { RoleEnum } from '../../common/enum/Role.enum';
 
 @Controller('categories')
 export class CategoriesController {

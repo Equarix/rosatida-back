@@ -4,7 +4,7 @@ import { Model } from 'mongoose';
 import { User } from '../auth/entity/User.schema';
 import { Category } from '../categories/entities/category.entity';
 import { Image } from '../images/entities/image.entity';
-import { createSlug } from 'src/common/utils/create-slug';
+import { createSlug } from '../../common/utils/create-slug';
 import { Blog } from './entities/blog.entity';
 import { CreateBlogDto } from './dto/create-blog.dto';
 import { UpdateBlogDto } from './dto/update-blog.dto';

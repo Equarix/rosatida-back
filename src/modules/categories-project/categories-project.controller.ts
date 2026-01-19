@@ -10,8 +10,8 @@ import {
 import { CategoriesProjectService } from './categories-project.service';
 import { CreateCategoriesProjectDto } from './dto/create-categories-project.dto';
 import { UpdateCategoriesProjectDto } from './dto/update-categories-project.dto';
-import { Auth } from 'src/common/decorator/auth/auth.decorator';
-import { RoleEnum } from 'src/common/enum/Role.enum';
+import { Auth } from '../../common/decorator/auth/auth.decorator';
+import { RoleEnum } from '../../common/enum/Role.enum';
 
 @Controller('categories-project')
 export class CategoriesProjectController {

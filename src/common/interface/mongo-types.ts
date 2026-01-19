@@ -1,5 +1,5 @@
 import { DefaultSchemaOptions, Document, Types } from 'mongoose';
-import { User } from 'src/modules/auth/entity/User.schema';
+import { User } from '../../modules/auth/entity/User.schema';
 
 export type UserModel = Document<unknown, {}, User, {}, DefaultSchemaOptions> &
   User & {

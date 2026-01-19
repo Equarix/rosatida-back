@@ -7,7 +7,8 @@ import { NextArticleComponentDto } from './components/next-article-component.dto
 import { TimeLineDto } from './components/time-line.dto';
 import { DetailsComponentDto } from './components/details-component.dto';
 import { QuoteComponentDto } from './components/quote-component.dto';
-import { ValidateComponent } from 'src/common/decorator/validate-component/validate-component.decorator';
+import { TextEditorComponentDto } from './components/text-editor.dto';
+import { ValidateComponent } from '../../decorator/validate-component/validate-component.decorator';
 
 export class ComponentDto {
   @IsEnum(ComponentType)
@@ -38,4 +39,7 @@ export class ComponentDto {
 
   @ValidateComponent(ComponentType.QUOTE, QuoteComponentDto)
   quoteComponent: QuoteComponentDto;
+
+  @ValidateComponent(ComponentType.TEXT_EDITOR, TextEditorComponentDto)
+  textComponent: TextEditorComponentDto;
 }

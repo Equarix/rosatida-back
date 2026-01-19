@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ImagesService } from './images.service';
 import { ImagesController } from './images.controller';
-import { CloudinaryProvider } from 'src/common/cloudinary/cloudinary.provider';
+import { CloudinaryProvider } from '../../common/cloudinary/cloudinary.provider';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Image, ImageSchema } from './entities/image.entity';
 import { AutoIncrementID } from '@typegoose/auto-increment';

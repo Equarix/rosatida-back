@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { ImagesService } from './images.service';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { Auth } from 'src/common/decorator/auth/auth.decorator';
+import { Auth } from '../../common/decorator/auth/auth.decorator';
 
 @Controller('images')
 export class ImagesController {

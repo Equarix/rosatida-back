@@ -7,6 +7,7 @@ import { NextArticleComponent } from './components/next-article/next-article-com
 import { TimeLine } from './components/time-line/time-line-component';
 import { DetailsComponent } from './components/details/details-component';
 import { QuoteComponent } from './components/quote/quote-component';
+import { TextEditorComponent } from './components/text-editor/text-editor-component';
 
 @Schema({
   _id: false,
@@ -53,4 +54,9 @@ export class Components {
     type: QuoteComponent,
   })
   quoteComponent: QuoteComponent;
+
+  @Prop({
+    type: TextEditorComponent,
+  })
+  textComponent: TextEditorComponent;
 }

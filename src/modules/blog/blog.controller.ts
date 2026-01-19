@@ -7,8 +7,8 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { Auth } from 'src/common/decorator/auth/auth.decorator';
-import { User } from 'src/common/decorator/user/user.decorator';
+import { Auth } from '../../common/decorator/auth/auth.decorator';
+import { User } from '../../common/decorator/user/user.decorator';
 import { CreateBlogDto } from './dto/create-blog.dto';
 import { UpdateBlogDto } from './dto/update-blog.dto';
 import { BlogService } from './blog.service';

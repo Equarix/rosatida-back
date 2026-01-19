@@ -6,7 +6,7 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-import { ColorEnum } from 'src/modules/categories/enum/ColorEnum';
+import { ColorEnum } from '../../../../modules/categories/enum/ColorEnum';
 
 export class SpanHeroComponentDto {
   @IsString()

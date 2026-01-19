@@ -1,5 +1,5 @@
 import { Prop, Schema } from '@nestjs/mongoose';
-import { Color } from 'src/common/enum/Color.enum';
+import { Color } from '../../../enum/Color.enum';
 import { Position } from './position.enum';
 
 @Schema({

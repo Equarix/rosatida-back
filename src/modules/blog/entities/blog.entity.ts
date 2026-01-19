@@ -1,8 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
-import { User } from 'src/modules/auth/entity/User.schema';
-import { Category } from 'src/modules/categories/entities/category.entity';
-import { Image } from 'src/modules/images/entities/image.entity';
+import { User } from '../../../modules/auth/entity/User.schema';
+import { Category } from '../../../modules/categories/entities/category.entity';
+import { Image } from '../../../modules/images/entities/image.entity';
 import { Components } from '../../../common/components/components';
 
 @Schema()

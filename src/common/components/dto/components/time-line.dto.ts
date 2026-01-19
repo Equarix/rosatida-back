@@ -1,4 +1,4 @@
-import { Color } from 'src/common/enum/Color.enum';
+import { Color } from '../../../enum/Color.enum';
 import { Position } from '../../components/time-line/position.enum';
 import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
 

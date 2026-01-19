@@ -1,5 +1,5 @@
 import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
-import { ColorEnum } from 'src/modules/categories/enum/ColorEnum';
+import { ColorEnum } from '../../categories/enum/ColorEnum';
 export class CreateCategoriesProjectDto {
   @IsString()
   @IsNotEmpty()

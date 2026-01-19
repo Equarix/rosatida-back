@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CloudinaryResponse } from 'src/common/cloudinary/cloudinary-response';
+import { CloudinaryResponse } from '../../common/cloudinary/cloudinary-response';
 import { v2 as cloudinary } from 'cloudinary';
 import streamifier from 'streamifier';
 import { InjectModel } from '@nestjs/mongoose';
