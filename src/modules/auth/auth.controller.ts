@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { Auth } from '../../common/decorator/auth/auth.decorator';
@@ -18,5 +18,17 @@ export class AuthController {
   @Post('register')
   async register(@Body() registerDto: RegisterDto) {
     return this.authService.register(registerDto);
+  }
+
+  @Auth([RoleEnum.ADMIN])
+  @Get('all-users')
+  async getAllUsers() {
+    return this.authService.getAllUsers();
+  }
+
+  @Auth([RoleEnum.ADMIN])
+  @Delete('delete-user/:id')
+  async deleteUser(@Param('id') id: number) {
+    return this.authService.deleteUser(id);
   }
 }

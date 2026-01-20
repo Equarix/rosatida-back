@@ -47,6 +47,10 @@ export class AuthService implements OnModuleInit {
       throw new HttpException('Invalid credentials', 401);
     }
 
+    if (!user.isActive) {
+      throw new HttpException('User is inactive', 403);
+    }
+
     const jwtPayload = {
       userId: user.userId,
       role: user.role,
@@ -81,5 +85,22 @@ export class AuthService implements OnModuleInit {
     return {
       ...newUser.toObject(),
     };
+  }
+
+  async getAllUsers() {
+    const users = await this.userModel.find().exec();
+    return users;
+  }
+
+  async deleteUser(id: number) {
+    const user = await this.userModel.findOne({ userId: id }).exec();
+    if (!user) {
+      throw new HttpException('User not found', 404);
+    }
+
+    return this.userModel.updateOne(
+      { userId: id },
+      { $set: { isActive: false } },
+    );
   }
 }

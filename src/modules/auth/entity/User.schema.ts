@@ -23,6 +23,16 @@ export class User {
     enum: RoleEnum,
   })
   role: RoleEnum;
+
+  @Prop({
+    default: Date.now,
+  })
+  createdAt: Date;
+
+  @Prop({
+    default: true,
+  })
+  isActive: boolean;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
