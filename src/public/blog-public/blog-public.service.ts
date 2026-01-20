@@ -57,7 +57,7 @@ export class BlogPublicService {
       data: blogs.map((blog) => {
         const userObject = blog.user as unknown as UserModel;
 
-        const name = userObject.toObject().username;
+        const name = userObject.toObject().fullName || '';
 
         return {
           ...blog.toObject(),

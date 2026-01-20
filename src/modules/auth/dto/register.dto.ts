@@ -8,7 +8,12 @@ export class RegisterDto {
   @IsString()
   @IsNotEmpty()
   password: string;
+
   @IsEnum(RoleEnum)
   @IsNotEmpty()
   role: RoleEnum;
+
+  @IsString()
+  @IsNotEmpty()
+  fullName: string;
 }

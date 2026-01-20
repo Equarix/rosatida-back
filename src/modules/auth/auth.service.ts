@@ -22,6 +22,7 @@ export class AuthService implements OnModuleInit {
         username: 'admin',
         password: hashedPassword,
         role: 'admin',
+        fullName: 'Administrator',
       });
       await newUser.save();
       console.log(
