@@ -8,6 +8,8 @@ import { CategoryPublicModule } from './public/category-public/category-public.m
 import { BlogModule } from './modules/blog/blog.module';
 import { BlogPublicModule } from './public/blog-public/blog-public.module';
 import { CategoriesProjectModule } from './modules/categories-project/categories-project.module';
+import { ContactModule } from './modules/contact/contact.module';
+import { ContactPublicModule } from './public/contact-public/contact-public.module';
 
 @Module({
   imports: [
@@ -20,6 +22,8 @@ import { CategoriesProjectModule } from './modules/categories-project/categories
     BlogModule,
     BlogPublicModule,
     CategoriesProjectModule,
+    ContactModule,
+    ContactPublicModule,
   ],
   controllers: [],
   providers: [],
