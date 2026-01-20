@@ -37,8 +37,12 @@ export class BlogController {
 
   @Auth()
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBlogDto: UpdateBlogDto) {
-    return this.blogService.update(+id, updateBlogDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateBlogDto: UpdateBlogDto,
+    @User('userId') userId: number,
+  ) {
+    return this.blogService.update(+id, updateBlogDto, userId);
   }
 
   @Auth()

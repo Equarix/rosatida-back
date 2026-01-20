@@ -74,11 +74,61 @@ export class BlogService {
     return blog;
   }
 
-  update(id: number, updateBlogDto: UpdateBlogDto) {
-    return `This action updates a #${id} blog`;
+  async update(id: number, updateBlogDto: UpdateBlogDto, userId: number) {
+    const blog = await this.blogModel.findOne({ blogId: id });
+
+    if (!blog) {
+      throw new HttpException('Blog not found', 404);
+    }
+
+    const { categoryId, imageId, ...rest } = updateBlogDto;
+
+    const findUser = await this.userModel.findOne({ userId });
+
+    if (!findUser) {
+      throw new HttpException('User not found', 404);
+    }
+
+    const findCategory = await this.categoryModel.findOne({ categoryId });
+
+    if (!findCategory) {
+      throw new HttpException('Category not found', 404);
+    }
+
+    const findImage = await this.imageModel.findOne({ imageId });
+
+    if (!findImage) {
+      throw new HttpException('Image not found', 404);
+    }
+
+    const slug = createSlug(rest.blogName);
+
+    const updatedBlog = await this.blogModel.findOneAndUpdate(
+      { blogId: id },
+      {
+        ...rest,
+        blogSlug: slug,
+        user: findUser._id,
+        category: findCategory._id,
+        image: findImage._id,
+      },
+    );
+
+    return updatedBlog;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} blog`;
+  async remove(id: number) {
+    const blog = await this.blogModel.findOne({ blogId: id });
+
+    if (!blog) {
+      throw new HttpException('Blog not found', 404);
+    }
+
+    const updateBlog = await this.blogModel.updateOne(
+      { blogId: id },
+      { isActive: false },
+    );
+
+    return updateBlog;
   }
 }
