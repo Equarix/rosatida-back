@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { Auth } from '../../common/decorator/auth/auth.decorator';
@@ -30,5 +38,14 @@ export class AuthController {
   @Delete('delete-user/:id')
   async deleteUser(@Param('id') id: number) {
     return this.authService.deleteUser(id);
+  }
+
+  @Auth([RoleEnum.ADMIN, RoleEnum.USER])
+  @Patch('edit/:id')
+  async updateUser(
+    @Param('id') id: number,
+    @Body() updateData: Partial<RegisterDto>,
+  ) {
+    return this.authService.updateUser(id, updateData);
   }
 }

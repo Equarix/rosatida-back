@@ -79,6 +79,7 @@ export class AuthService implements OnModuleInit {
       username,
       password: hashedPassword,
       role,
+      fullName: registerDto.fullName,
     });
 
     await newUser.save();
@@ -103,5 +104,18 @@ export class AuthService implements OnModuleInit {
       { userId: id },
       { $set: { isActive: false } },
     );
+  }
+
+  async updateUser(id: number, updateData: Partial<RegisterDto>) {
+    const user = await this.userModel.findOne({ userId: id }).exec();
+    if (!user) {
+      throw new HttpException('User not found', 404);
+    }
+
+    if (updateData.password) {
+      updateData.password = await hash(updateData.password, 10);
+    }
+
+    return this.userModel.updateOne({ userId: id }, { $set: updateData });
   }
 }
