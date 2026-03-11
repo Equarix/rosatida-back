@@ -10,6 +10,7 @@ import { BlogPublicModule } from './public/blog-public/blog-public.module';
 import { CategoriesProjectModule } from './modules/categories-project/categories-project.module';
 import { ContactModule } from './modules/contact/contact.module';
 import { ContactPublicModule } from './public/contact-public/contact-public.module';
+import { ProjectsModule } from './modules/projects/projects.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { ContactPublicModule } from './public/contact-public/contact-public.modu
     CategoriesProjectModule,
     ContactModule,
     ContactPublicModule,
+    ProjectsModule,
   ],
   controllers: [],
   providers: [],
