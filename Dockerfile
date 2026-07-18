@@ -3,23 +3,20 @@ FROM node:22-alpine AS builder
 
 WORKDIR /usr/src/app
 
-RUN npm install -g pnpm
-
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile
+COPY package.json ./
+# Remove pnpm requirement and just use npm
+RUN npm install
 
 COPY . .
-RUN pnpm run build
+RUN npm run build
 
 # Production stage
 FROM node:22-alpine
 
 WORKDIR /usr/src/app
 
-RUN npm install -g pnpm
-
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --prod --frozen-lockfile
+COPY package.json ./
+RUN npm install --omit=dev
 
 COPY --from=builder /usr/src/app/dist ./dist
 
