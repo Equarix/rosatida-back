@@ -6,6 +6,7 @@ import { LoginDto } from './dto/login.dto';
 import { compare, hash } from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 import { RegisterDto } from './dto/register.dto';
+import { RoleEnum } from '../../common/enum/Role.enum';
 
 @Injectable()
 export class AuthService implements OnModuleInit {
@@ -21,7 +22,7 @@ export class AuthService implements OnModuleInit {
       const newUser = await this.userModel.create({
         username: 'admin',
         password: hashedPassword,
-        role: 'admin',
+        role: RoleEnum.ADMIN,
         fullName: 'Administrator',
       });
       await newUser.save();
