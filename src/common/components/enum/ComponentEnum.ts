@@ -7,4 +7,8 @@ export enum ComponentType {
   DETAILS = 'DETAILS',
   QUOTE = 'QUOTE',
   TEXT_EDITOR = 'TEXT',
+  IMAGE_CAPTION = 'IMAGE_CAPTION',
+  STATS = 'STATS',
+  QUESTIONS = 'QUESTIONS',
+  HEADER = 'HEADER',
 }

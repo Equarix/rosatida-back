@@ -28,7 +28,9 @@ export class ProjectsService {
       throw new HttpException('User not found', 404);
     }
 
-    const findCategory = await this.categoryModel.findOne({ categoryId });
+    const findCategory = await this.categoryModel.findOne({
+      category_proyectId: categoryId,
+    });
 
     if (!findCategory) {
       throw new HttpException('Category not found', 404);
@@ -90,7 +92,9 @@ export class ProjectsService {
       throw new HttpException('User not found', 404);
     }
 
-    const findCategory = await this.categoryModel.findOne({ categoryId });
+    const findCategory = await this.categoryModel.findOne({
+      category_proyectId: categoryId,
+    });
 
     if (!findCategory) {
       throw new HttpException('Category not found', 404);

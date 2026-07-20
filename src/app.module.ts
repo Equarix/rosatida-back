@@ -11,6 +11,8 @@ import { CategoriesProjectModule } from './modules/categories-project/categories
 import { ContactModule } from './modules/contact/contact.module';
 import { ContactPublicModule } from './public/contact-public/contact-public.module';
 import { ProjectsModule } from './modules/projects/projects.module';
+import { CategoryProjectsModule } from './public/category-projects/category-projects.module';
+import { ProjectsModule as PublicProjectsModule } from './public/projects/projects.module';
 
 @Module({
   imports: [
@@ -26,6 +28,8 @@ import { ProjectsModule } from './modules/projects/projects.module';
     ContactModule,
     ContactPublicModule,
     ProjectsModule,
+    PublicProjectsModule,
+    CategoryProjectsModule,
   ],
   controllers: [],
   providers: [],

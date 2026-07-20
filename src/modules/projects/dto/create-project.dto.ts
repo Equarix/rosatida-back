@@ -1,6 +1,7 @@
 import {
   ArrayMinSize,
   IsArray,
+  IsBoolean,
   IsNotEmpty,
   IsNumber,
   IsString,
@@ -24,6 +25,16 @@ export class CreateProjectDto {
   @IsNumber()
   @IsNotEmpty()
   categoryId: number;
+
+  @IsBoolean()
+  @IsNotEmpty()
+  isPage: boolean;
+
+  @IsArray()
+  @IsNotEmpty({ each: true })
+  @IsString({ each: true })
+  @ArrayMinSize(1)
+  technologies: string[];
 
   @IsArray()
   @ArrayMinSize(1)

@@ -47,6 +47,14 @@ export class Project {
   })
   status: boolean;
 
+  @Prop()
+  isPage: boolean;
+
+  @Prop({
+    type: [String],
+  })
+  technologies: string[];
+
   @Prop({
     type: Array,
     default: [],

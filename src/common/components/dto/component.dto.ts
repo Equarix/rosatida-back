@@ -1,4 +1,11 @@
-import { ArrayMinSize, IsArray, IsEnum, IsNotEmpty } from 'class-validator';
+import {
+  ArrayMinSize,
+  IsArray,
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { ComponentType } from '../enum/ComponentEnum';
 import { HeroComponentDto } from './components/hero.dto';
 import { ImageDto } from './components/image.dto';
@@ -9,11 +16,19 @@ import { DetailsComponentDto } from './components/details-component.dto';
 import { QuoteComponentDto } from './components/quote-component.dto';
 import { TextEditorComponentDto } from './components/text-editor.dto';
 import { ValidateComponent } from '../../decorator/validate-component/validate-component.decorator';
+import { ImageCaptionComponentDto } from './components/image-caption-component.dto';
+import { StatsComponentDto } from './components/stats-component';
+import { QuestionsComponentDto } from './components/questions-component';
+import { HeaderComponentDto } from './components/header-component.dto';
 
 export class ComponentDto {
   @IsEnum(ComponentType)
   @IsNotEmpty()
   type: ComponentType;
+
+  @IsString()
+  @IsOptional()
+  key?: string;
 
   @ValidateComponent(ComponentType.HERO, HeroComponentDto)
   heroComponent: HeroComponentDto;
@@ -42,4 +57,18 @@ export class ComponentDto {
 
   @ValidateComponent(ComponentType.TEXT_EDITOR, TextEditorComponentDto)
   textComponent: TextEditorComponentDto;
+
+  @ValidateComponent(ComponentType.IMAGE_CAPTION, ImageCaptionComponentDto)
+  imageCaptionComponent: ImageCaptionComponentDto;
+
+  @ValidateComponent(ComponentType.STATS, StatsComponentDto, true)
+  @IsArray()
+  @ArrayMinSize(1)
+  statsComponent: StatsComponentDto[];
+
+  @ValidateComponent(ComponentType.QUESTIONS, QuestionsComponentDto)
+  questionsComponent: QuestionsComponentDto;
+
+  @ValidateComponent(ComponentType.HEADER, HeaderComponentDto)
+  headerComponent: HeaderComponentDto;
 }

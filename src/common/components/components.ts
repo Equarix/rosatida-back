@@ -8,6 +8,10 @@ import { TimeLine } from './components/time-line/time-line-component';
 import { DetailsComponent } from './components/details/details-component';
 import { QuoteComponent } from './components/quote/quote-component';
 import { TextEditorComponent } from './components/text-editor/text-editor-component';
+import { ImageCaptionComponent } from './components/image-caption/image-caption-component';
+import { StatsComponent } from './components/stats/stas-component';
+import { QuestionsComponent } from './components/questions/questions-component';
+import { HeaderComponent } from './components/header/header-component';
 
 @Schema({
   _id: false,
@@ -19,6 +23,9 @@ export class Components {
     type: String,
   })
   type: ComponentType;
+
+  @Prop()
+  key: string;
 
   @Prop({
     type: HeroComponent,
@@ -59,4 +66,24 @@ export class Components {
     type: TextEditorComponent,
   })
   textComponent: TextEditorComponent;
+
+  @Prop({
+    type: ImageCaptionComponent,
+  })
+  imageCaptionComponent: ImageCaptionComponent;
+
+  @Prop({
+    type: [StatsComponent],
+  })
+  statsComponent: StatsComponent[];
+
+  @Prop({
+    type: QuestionsComponent,
+  })
+  questionsComponent: QuestionsComponent;
+
+  @Prop({
+    type: HeaderComponent,
+  })
+  headerComponent: HeaderComponent;
 }
