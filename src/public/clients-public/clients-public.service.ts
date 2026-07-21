@@ -12,7 +12,7 @@ export class ClientsPublicService {
   async findAll() {
     return this.clientModel
       .find({
-        status: true,
+        isActive: true,
       })
       .exec();
   }
