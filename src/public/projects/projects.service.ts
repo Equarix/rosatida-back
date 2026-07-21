@@ -65,6 +65,18 @@ export class ProjectsService {
     };
   }
 
+  async findAllFeatured() {
+    const projects = await this.projectModel
+      .find({ status: true, feature: true })
+      .select('-components')
+      .populate('image')
+      .populate('category')
+      .limit(6)
+      .exec();
+
+    return projects;
+  }
+
   async findOne(slug: string) {
     const project = await this.projectModel
       .findOne({ projectSlug: slug, status: true })

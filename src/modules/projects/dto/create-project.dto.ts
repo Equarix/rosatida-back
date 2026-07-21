@@ -42,4 +42,8 @@ export class CreateProjectDto {
   @IsNotEmpty({ each: true })
   @Type(() => ComponentDto)
   components: ComponentDto[];
+
+  @IsBoolean()
+  @IsNotEmpty()
+  feature: boolean;
 }

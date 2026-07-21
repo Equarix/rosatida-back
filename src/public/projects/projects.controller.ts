@@ -15,4 +15,9 @@ export class ProjectsController {
   findOne(@Param('slug') slug: string) {
     return this.projectsService.findOne(slug);
   }
+
+  @Get('home/featured')
+  findAllFeatured() {
+    return this.projectsService.findAllFeatured();
+  }
 }

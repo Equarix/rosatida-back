@@ -60,6 +60,9 @@ export class Project {
     default: [],
   })
   components: Components[];
+
+  @Prop()
+  feature: boolean;
 }
 
 export const ProjectSchema = SchemaFactory.createForClass(Project);

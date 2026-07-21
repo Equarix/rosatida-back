@@ -13,6 +13,8 @@ import { ContactPublicModule } from './public/contact-public/contact-public.modu
 import { ProjectsModule } from './modules/projects/projects.module';
 import { CategoryProjectsModule } from './public/category-projects/category-projects.module';
 import { ProjectsModule as PublicProjectsModule } from './public/projects/projects.module';
+import { ClientsModule } from './modules/clients/clients.module';
+import { ClientsPublicModule } from './public/clients-public/clients-public.module';
 
 @Module({
   imports: [
@@ -30,6 +32,8 @@ import { ProjectsModule as PublicProjectsModule } from './public/projects/projec
     ProjectsModule,
     PublicProjectsModule,
     CategoryProjectsModule,
+    ClientsModule,
+    ClientsPublicModule,
   ],
   controllers: [],
   providers: [],
