@@ -11,6 +11,7 @@ export class ContactPublicService {
   ) {}
 
   create(createContactPublicDto: CreateContactDto) {
-    return 'This action adds a new contactPublic';
+    const createdContact = new this.contactModel(createContactPublicDto);
+    return createdContact.save();
   }
 }

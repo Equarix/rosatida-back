@@ -1,5 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
+export enum ContactStatus {
+  PENDING = 'pending',
+  IN_PROGRESS = 'in_progress',
+  COMPLETED = 'completed',
+}
+
 @Schema()
 export class Contact {
   @Prop()
@@ -29,6 +35,12 @@ export class Contact {
     default: true,
   })
   status: boolean;
+
+  @Prop({
+    enum: ContactStatus,
+    default: ContactStatus.PENDING,
+  })
+  contactStatus: ContactStatus;
 }
 
 export const ContactSchema = SchemaFactory.createForClass(Contact);
