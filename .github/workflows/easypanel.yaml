@@ -10,4 +10,12 @@ jobs:
 
     steps:
       - name: Trigger EasyPanel Deployment
-        run: curl -X POST "${{secrets.EASYPANEL_DEPLOY_URL}}"
+        env:
+          EASYPANEL_DEPLOY_URL: ${{ vars.EASYPANEL_DEPLOY_URL || secrets.EASYPANEL_DEPLOY_URL }}
+        run: |
+          if [ -z "${EASYPANEL_DEPLOY_URL}" ]; then
+            echo "EASYPANEL_DEPLOY_URL is not configured in repository variables or secrets."
+            exit 1
+          fi
+
+          curl --fail --show-error --silent -X POST "${EASYPANEL_DEPLOY_URL}"
