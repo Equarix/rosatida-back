@@ -28,7 +28,7 @@ export class ContactService {
       .findOne({ contactId: id })
       .exec();
     if (!findContact) {
-      throw new HttpException('Contact not found', 404);
+      throw new HttpException('Contact not founds', 404);
     }
 
     return this.contactModel
