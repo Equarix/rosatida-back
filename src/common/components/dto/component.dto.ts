@@ -20,6 +20,8 @@ import { ImageCaptionComponentDto } from './components/image-caption-component.d
 import { StatsComponentDto } from './components/stats-component';
 import { QuestionsComponentDto } from './components/questions-component';
 import { HeaderComponentDto } from './components/header-component.dto';
+import { TestimonialsComponentDto } from './components/testimonials-component.dto';
+import { CarrouselComponentDto } from './components/carrousel-component.dto';
 
 export class ComponentDto {
   @IsEnum(ComponentType)
@@ -71,4 +73,10 @@ export class ComponentDto {
 
   @ValidateComponent(ComponentType.HEADER, HeaderComponentDto)
   headerComponent: HeaderComponentDto;
+
+  @ValidateComponent(ComponentType.TESTIMONIALS, TestimonialsComponentDto)
+  testimonialsComponent: TestimonialsComponentDto;
+
+  @ValidateComponent(ComponentType.CARROUSEL, CarrouselComponentDto)
+  carrouselComponent: CarrouselComponentDto;
 }

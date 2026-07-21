@@ -12,6 +12,8 @@ import { ImageCaptionComponent } from './components/image-caption/image-caption-
 import { StatsComponent } from './components/stats/stas-component';
 import { QuestionsComponent } from './components/questions/questions-component';
 import { HeaderComponent } from './components/header/header-component';
+import { TestimonialsComponent } from './components/testimonials/testimonials-component';
+import { CarrouselComponent } from './components/carrousel/carrousel-component';
 
 @Schema({
   _id: false,
@@ -86,4 +88,14 @@ export class Components {
     type: HeaderComponent,
   })
   headerComponent: HeaderComponent;
+
+  @Prop({
+    type: TestimonialsComponent,
+  })
+  testimonialsComponent: TestimonialsComponent;
+
+  @Prop({
+    type: CarrouselComponent,
+  })
+  carrouselComponent: CarrouselComponent;
 }
