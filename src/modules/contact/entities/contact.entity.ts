@@ -2,8 +2,10 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 export enum ContactStatus {
   PENDING = 'pending',
-  IN_PROGRESS = 'in_progress',
-  COMPLETED = 'completed',
+  READ = 'read',
+  RESPONDED = 'responded',
+  RESOLVED = 'resolved',
+  REJECTED = 'rejected',
 }
 
 @Schema()

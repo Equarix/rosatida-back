@@ -1,7 +1,9 @@
 import { Controller, Get, Body, Param, Delete, Put } from '@nestjs/common';
 import { ContactService } from './contact.service';
 import { UpdateContactDto } from './dto/update-contact.dto';
+import { Auth } from 'src/common/decorator/auth/auth.decorator';
 
+@Auth()
 @Controller('contact')
 export class ContactController {
   constructor(private readonly contactService: ContactService) {}
