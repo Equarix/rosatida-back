@@ -3,12 +3,14 @@ import {
   ArrayMinSize,
   IsArray,
   IsBoolean,
+  IsEnum,
   IsNotEmpty,
   IsOptional,
   IsString,
   IsUrl,
   ValidateNested,
 } from 'class-validator';
+import { TypeHeader } from '../../components/header/header-component';
 
 export class HeaderButtonComponentDto {
   @IsString()
@@ -50,6 +52,10 @@ export class HeaderComponentDto {
   @IsBoolean()
   @IsNotEmpty()
   isFixed: boolean;
+
+  @IsEnum(TypeHeader)
+  @IsNotEmpty()
+  type: TypeHeader;
 
   @IsOptional()
   @IsArray()

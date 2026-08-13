@@ -28,6 +28,11 @@ export class HeaderButtonComponent {
   isExternal: boolean;
 }
 
+export enum TypeHeader {
+  TYPE_ONE = 'type_one',
+  TYPE_TWO = 'type_two',
+}
+
 @Schema({
   _id: false,
 })
@@ -45,6 +50,13 @@ export class HeaderComponent {
 
   @Prop()
   isFixed: boolean;
+
+  @Prop({
+    type: String,
+    enum: TypeHeader,
+    default: TypeHeader.TYPE_ONE,
+  })
+  type: TypeHeader;
 
   @Prop({
     type: [HeaderButtonComponent],
