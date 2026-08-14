@@ -14,6 +14,7 @@ import { QuestionsComponent } from './components/questions/questions-component';
 import { HeaderComponent } from './components/header/header-component';
 import { TestimonialsComponent } from './components/testimonials/testimonials-component';
 import { CarrouselComponent } from './components/carrousel/carrousel-component';
+import { TableComponent } from './components/table/table-component';
 
 @Schema({
   _id: false,
@@ -98,4 +99,10 @@ export class Components {
     type: CarrouselComponent,
   })
   carrouselComponent: CarrouselComponent;
+
+  @Prop({
+    type: TableComponent,
+  })
+  tableComponent: TableComponent;
 }
+

@@ -22,6 +22,7 @@ import { QuestionsComponentDto } from './components/questions-component';
 import { HeaderComponentDto } from './components/header-component.dto';
 import { TestimonialsComponentDto } from './components/testimonials-component.dto';
 import { CarrouselComponentDto } from './components/carrousel-component.dto';
+import { TableComponentDto } from './components/table-component.dto';
 
 export class ComponentDto {
   @IsEnum(ComponentType)
@@ -79,4 +80,8 @@ export class ComponentDto {
 
   @ValidateComponent(ComponentType.CARROUSEL, CarrouselComponentDto)
   carrouselComponent: CarrouselComponentDto;
+
+  @ValidateComponent(ComponentType.TABLE, TableComponentDto)
+  tableComponent: TableComponentDto;
 }
+

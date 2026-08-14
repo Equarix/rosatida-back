@@ -13,4 +13,6 @@ export enum ComponentType {
   HEADER = 'HEADER',
   TESTIMONIALS = 'TESTIMONIALS',
   CARROUSEL = 'CARROUSEL',
+  TABLE = 'TABLE',
 }
+
