@@ -27,7 +27,9 @@ export class Tracking {
   })
   status: StatusTracking;
 
-  @Column()
+  @Column({
+    type: 'text',
+  })
   notes: string;
 
   @ManyToOne(() => Enterprise, (enterprise) => enterprise.trackings)

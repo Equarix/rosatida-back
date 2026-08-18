@@ -9,12 +9,18 @@ import {
   ParseIntPipe,
   UseInterceptors,
   UploadedFile,
+  ParseFilePipe,
+  Query,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CrmService } from './crm.service';
 import { CreateEnterpriseDto } from './dto/create-enterprise.dto';
 import { UpdateEnterpriseDto } from './dto/update-enterprise.dto';
+import { CreateTrackingDto } from './dto/create-tracking.dto';
+import { UpdateTrackingDto } from './dto/update-tracking.dto';
+import { QueryEnterpriseDto } from './dto/query-enterprise.dto';
 import { Auth } from 'src/common/decorator/auth/auth.decorator';
+import { CsvValidator } from './validators/csv.validator';
 
 @Auth()
 @Controller('crm')
@@ -27,8 +33,8 @@ export class CrmController {
   }
 
   @Get()
-  findAll() {
-    return this.crmService.findAll();
+  findAll(@Query() queryDto: QueryEnterpriseDto) {
+    return this.crmService.findAll(queryDto);
   }
 
   @Get(':id')
@@ -51,7 +57,33 @@ export class CrmController {
 
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
-  uploadFile(@UploadedFile() file: Express.Multer.File) {
-    return this.crmService.handleFileUpload(file);
+  uploadFile(
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [new CsvValidator({})],
+      }),
+    )
+    file: Express.Multer.File,
+    @Body('idCategoria', new ParseIntPipe()) idCategoria: number,
+  ) {
+    return this.crmService.handleFileUpload(file, idCategoria);
+  }
+
+  @Post('tracking')
+  createTracking(@Body() createTrackingDto: CreateTrackingDto) {
+    return this.crmService.createTracking(createTrackingDto);
+  }
+
+  @Patch('tracking/:id')
+  updateTracking(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateTrackingDto: UpdateTrackingDto,
+  ) {
+    return this.crmService.updateTracking(id, updateTrackingDto);
+  }
+
+  @Delete('tracking/:id')
+  removeTracking(@Param('id', ParseIntPipe) id: number) {
+    return this.crmService.removeTracking(id);
   }
 }

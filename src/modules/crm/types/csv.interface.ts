@@ -1,0 +1,31 @@
+export interface CsvData {
+  Name: string;
+  Fulladdress: string;
+  Street: string;
+  Municipality: string;
+  Categories: string;
+  Phone: string;
+  Phones: string;
+  Claimed: string;
+  'Review Count': string;
+  'Average Rating': string;
+  'Review URL': string;
+  'Google Maps URL': string;
+  Latitude: string;
+  Longitude: string;
+  Website: string;
+  Domain: string;
+  'Opening hours': string;
+  'Featured image': string;
+  Cid: string;
+  'Place Id': string;
+  Kgmid: string;
+  'Plus code': string;
+  'Google Knowledge URL': string;
+  Email: string;
+  'Social Medias': string;
+  Facebook: string;
+  Instagram: string;
+  Twitter: string;
+  Yelp: string;
+}

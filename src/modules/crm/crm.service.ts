@@ -6,6 +6,12 @@ import { Tracking } from './entites/tracking.entityp';
 import { CategoryEnterprise } from '../crm-categories/entities/categorie.entityp';
 import { CreateEnterpriseDto } from './dto/create-enterprise.dto';
 import { UpdateEnterpriseDto } from './dto/update-enterprise.dto';
+import { CreateTrackingDto } from './dto/create-tracking.dto';
+import { UpdateTrackingDto } from './dto/update-tracking.dto';
+import { QueryEnterpriseDto } from './dto/query-enterprise.dto';
+import { ResponseExtras } from 'src/common/interface/types';
+import csv from 'csvtojson';
+import { CsvData } from './types/csv.interface';
 
 @Injectable()
 export class CrmService {
@@ -40,13 +46,55 @@ export class CrmService {
     return await this.enterpriseRepository.save(enterprise);
   }
 
-  async findAll(): Promise<Enterprise[]> {
-    return await this.enterpriseRepository.find({
-      relations: {
-        category: true,
-        trackings: true,
+  async findAll(
+    queryDto: QueryEnterpriseDto,
+  ): Promise<ResponseExtras<Enterprise[]>> {
+    const {
+      page = 1,
+      limit = 10,
+      search,
+      categoryId,
+      trackingStatus,
+    } = queryDto;
+
+    const queryBuilder = this.enterpriseRepository
+      .createQueryBuilder('enterprise')
+      .leftJoinAndSelect('enterprise.category', 'category')
+      .leftJoinAndSelect('enterprise.trackings', 'trackings');
+
+    if (search) {
+      queryBuilder.andWhere(
+        '(LOWER(enterprise.name) LIKE LOWER(:search) OR LOWER(enterprise.address) LIKE LOWER(:search) OR LOWER(enterprise.phone) LIKE LOWER(:search))',
+        { search: `%${search}%` },
+      );
+    }
+
+    if (categoryId) {
+      queryBuilder.andWhere('category.categoryEnterpriseId = :categoryId', {
+        categoryId,
+      });
+    }
+
+    if (trackingStatus) {
+      queryBuilder.andWhere('trackings.status = :trackingStatus', {
+        trackingStatus,
+      });
+    }
+
+    const skip = (page - 1) * limit;
+    queryBuilder.skip(skip).take(limit);
+
+    const [data, total] = await queryBuilder.getManyAndCount();
+
+    return {
+      data,
+      metadata: {
+        totalItems: total,
+        itemCount: data.length,
+        totalPages: Math.ceil(total / limit),
+        currentPage: page,
       },
-    });
+    };
   }
 
   async findOne(id: number): Promise<Enterprise> {
@@ -93,7 +141,6 @@ export class CrmService {
   async remove(id: number): Promise<void> {
     const enterprise = await this.findOne(id);
 
-    // Remove associated trackings before removing enterprise
     if (enterprise.trackings && enterprise.trackings.length > 0) {
       await this.trackingRepository.remove(enterprise.trackings);
     }
@@ -101,16 +148,120 @@ export class CrmService {
     await this.enterpriseRepository.remove(enterprise);
   }
 
-  async handleFileUpload(file: Express.Multer.File) {
+  async handleFileUpload(file: Express.Multer.File, idCategoria: number) {
     if (!file) {
       throw new HttpException('File is required', HttpStatus.BAD_REQUEST);
     }
 
-    return {
-      message: 'File uploaded successfully',
-      filename: file.originalname,
-      size: file.size,
-      mimetype: file.mimetype,
-    };
+    const category = await this.categoryRepository.findOne({
+      where: { categoryEnterpriseId: idCategoria },
+    });
+
+    if (!category) {
+      throw new HttpException(
+        'Category Enterprise not found',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    const jsonArray = await csv().fromString(file.buffer.toString('utf8'));
+
+    const parsedData = jsonArray as CsvData[];
+
+    const enterprisesToSave = parsedData.map((data) => {
+      const schedule = data['Opening hours'].split(',').map((entry) => {
+        const [day, hours] = entry.split('[').map((part) => part.trim());
+
+        const parseDay = day?.replace(':', '').trim();
+        const parseHours = hours?.replace(']', '').trim();
+
+        return {
+          day: parseDay ?? '',
+          hours: parseHours ?? '',
+        };
+      });
+
+      return this.enterpriseRepository.create({
+        name: data.Name,
+        address: data.Fulladdress,
+        street: data.Street,
+        phone: data.Phone,
+        reviewCount: parseInt(data['Review Count'], 10) || 0,
+        stars: parseFloat(data['Average Rating']) || 0,
+        urlGoogleMaps: data['Google Maps URL'],
+        lat: data.Latitude,
+        lng: data.Longitude,
+        website: data.Website,
+        schedules: schedule,
+        category,
+      });
+    });
+
+    await this.enterpriseRepository.save(enterprisesToSave);
+
+    return enterprisesToSave;
+  }
+
+  async createTracking(
+    createTrackingDto: CreateTrackingDto,
+  ): Promise<Tracking> {
+    const { enterpriseId, ...trackingData } = createTrackingDto;
+
+    const enterprise = await this.enterpriseRepository.findOne({
+      where: { enterpriseId },
+    });
+
+    if (!enterprise) {
+      throw new HttpException('Enterprise not found', HttpStatus.NOT_FOUND);
+    }
+
+    const tracking = this.trackingRepository.create({
+      ...trackingData,
+      enterprise,
+    });
+
+    return await this.trackingRepository.save(tracking);
+  }
+
+  async updateTracking(
+    id: number,
+    updateTrackingDto: UpdateTrackingDto,
+  ): Promise<Tracking> {
+    const { enterpriseId, ...trackingData } = updateTrackingDto;
+
+    const tracking = await this.trackingRepository.findOne({
+      where: { trackingId: id },
+      relations: { enterprise: true },
+    });
+
+    if (!tracking) {
+      throw new HttpException('Tracking not found', HttpStatus.NOT_FOUND);
+    }
+
+    if (enterpriseId) {
+      const enterprise = await this.enterpriseRepository.findOne({
+        where: { enterpriseId },
+      });
+
+      if (!enterprise) {
+        throw new HttpException('Enterprise not found', HttpStatus.NOT_FOUND);
+      }
+      tracking.enterprise = enterprise;
+    }
+
+    Object.assign(tracking, trackingData);
+    return await this.trackingRepository.save(tracking);
+  }
+
+  async removeTracking(id: number): Promise<void> {
+    const tracking = await this.trackingRepository.findOne({
+      where: { trackingId: id },
+    });
+
+    if (!tracking) {
+      throw new HttpException('Tracking not found', HttpStatus.NOT_FOUND);
+    }
+
+    await this.trackingRepository.remove(tracking);
   }
 }

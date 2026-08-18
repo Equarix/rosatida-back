@@ -28,7 +28,11 @@ export class Enterprise {
   @Column()
   reviewCount: number;
 
-  @Column()
+  @Column({
+    type: 'numeric',
+    precision: 10,
+    scale: 2,
+  })
   stars: number;
 
   @Column()
