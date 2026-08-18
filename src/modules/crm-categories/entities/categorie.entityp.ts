@@ -18,6 +18,12 @@ export class CategoryEnterprise {
   icon: string;
 
   @Column({
+    type: 'text',
+    nullable: true,
+  })
+  speach: string;
+
+  @Column({
     default: () => 'CURRENT_TIMESTAMP',
   })
   createdAt: Date;

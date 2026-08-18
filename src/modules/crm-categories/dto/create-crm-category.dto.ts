@@ -12,4 +12,8 @@ export class CreateCrmCategoryDto {
   @IsBoolean()
   @IsOptional()
   status?: boolean;
+
+  @IsString()
+  @IsNotEmpty()
+  speach: string;
 }
