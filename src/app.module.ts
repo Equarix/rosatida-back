@@ -21,15 +21,18 @@ import { CrmCategoriesModule } from './modules/crm-categories/crm-categories.mod
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     MongooseModule.forRoot(process.env.MONGODB_URI!),
     TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
       inject: [ConfigService],
       name: 'default',
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
         host: configService.get<string>('DB_HOST', 'localhost'),
-        port: Number(configService.get<number>('DB_PORT', 1433)),
+        port: Number(configService.get<number>('DB_PORT', 5432)),
         username: configService.get<string>('DB_USER', 'sa'),
         password: configService.get<string>('DB_PASSWORD', ''),
         database: configService.get<string>('DB_NAME', 'master'),
