@@ -60,4 +60,9 @@ export class Enterprise {
 
   @OneToMany(() => Tracking, (tracking) => tracking.enterprise)
   trackings: Tracking[];
+
+  @Column({
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createdAt: Date;
 }
