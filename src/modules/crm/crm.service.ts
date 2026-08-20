@@ -165,30 +165,34 @@ export class CrmService {
       );
     }
 
-    const jsonArray = await csv().fromString(file.buffer.toString('utf8'));
+    const jsonArray = await csv({ delimiter: 'auto' }).fromString(
+      file.buffer.toString('utf8'),
+    );
 
     const parsedData = jsonArray as CsvData[];
 
     const enterprisesToSave = parsedData.map((data) => {
-      const schedule = data['Opening hours'].split(',').map((entry) => {
-        const [day, hours] = entry.split('[').map((part) => part.trim());
+      const schedule = data['Opening hours']
+        ? data['Opening hours'].split(/[,;]/).map((entry) => {
+            const [day, hours] = entry.split('[').map((part) => part.trim());
 
-        const parseDay = day?.replace(':', '').trim();
-        const parseHours = hours?.replace(']', '').trim();
+            const parseDay = day?.replace(':', '').trim();
+            const parseHours = hours?.replace(']', '').trim();
 
-        return {
-          day: parseDay ?? '',
-          hours: parseHours ?? '',
-        };
-      });
+            return {
+              day: parseDay ?? '',
+              hours: parseHours ?? '',
+            };
+          })
+        : [];
 
       return this.enterpriseRepository.create({
         name: data.Name,
         address: data.Fulladdress,
         street: data.Street,
         phone: data.Phone,
-        reviewCount: parseInt(data['Review Count'], 10) || 0,
-        stars: parseFloat(data['Average Rating']) || 0,
+        reviewCount: parseInt(data['Review Count'] ?? '0', 10) || 0,
+        stars: parseFloat(data['Average Rating'] ?? '0') || 0,
         urlGoogleMaps: data['Google Maps URL'],
         lat: data.Latitude,
         lng: data.Longitude,
