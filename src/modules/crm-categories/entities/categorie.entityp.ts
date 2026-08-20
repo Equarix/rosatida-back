@@ -1,5 +1,6 @@
 import { Enterprise } from 'src/modules/crm/entites/enterprise.entityp';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Speach } from './speach.entityp';
 
 @Entity()
 export class CategoryEnterprise {
@@ -18,16 +19,13 @@ export class CategoryEnterprise {
   icon: string;
 
   @Column({
-    type: 'text',
-    nullable: true,
-  })
-  speach: string;
-
-  @Column({
     default: () => 'CURRENT_TIMESTAMP',
   })
   createdAt: Date;
 
   @OneToMany(() => Enterprise, (enterprise) => enterprise.category)
   enterprises: Enterprise[];
+
+  @OneToMany(() => Speach, (speach) => speach.category)
+  speaches: Speach[];
 }

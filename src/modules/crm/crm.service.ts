@@ -60,6 +60,7 @@ export class CrmService {
     const queryBuilder = this.enterpriseRepository
       .createQueryBuilder('enterprise')
       .leftJoinAndSelect('enterprise.category', 'category')
+      .leftJoinAndSelect('category.speaches', 'speaches')
       .leftJoinAndSelect('enterprise.trackings', 'trackings');
 
     if (search) {

@@ -1,4 +1,13 @@
-import { IsNotEmpty, IsOptional, IsString, IsBoolean } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsBoolean,
+  IsArray,
+  ValidateNested,
+  ArrayMinSize,
+} from 'class-validator';
 
 export class CreateCrmCategoryDto {
   @IsString()
@@ -12,6 +21,18 @@ export class CreateCrmCategoryDto {
   @IsBoolean()
   @IsOptional()
   status?: boolean;
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => SpeachDto)
+  @ArrayMinSize(1, { message: 'At least one speach is required' })
+  speaches: SpeachDto[];
+}
+
+export class SpeachDto {
+  @IsString()
+  @IsNotEmpty()
+  name: string;
 
   @IsString()
   @IsNotEmpty()
